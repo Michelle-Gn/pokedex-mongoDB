@@ -1,5 +1,6 @@
 import React from 'react';
 import PokemonList from './PokemonList.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
 
@@ -9,15 +10,20 @@ constructor(props) {
   this.state = {
     data : []
  }
+
+ this.getItems = this.getItems.bind(this)
 }
 
 componentDidMount() {
-  getItems()
+  this.getItems()
 }
 
 getItems() {
-  axios.get('/pokedex').then((results) => {
+  axios.get('/pokemon').then((results) => {
     this.setState({data: results.data})
+  })
+  .catch((error) => {
+    console.log(error)
   })
 }
 
